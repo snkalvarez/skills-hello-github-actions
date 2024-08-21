@@ -43,7 +43,6 @@ jobs:
     if: >-
       ${{ !github.event.repository.is_template
           && needs.get_current_step.outputs.current_step == 0 }}
-
     # We'll run Ubuntu for performance instead of Mac or Windows.
     runs-on: ubuntu-latest
 
@@ -63,19 +62,15 @@ jobs:
             echo "Current step is not 0"
             exit 0
           fi
-
           echo "Make a branch"
           BRANCH=welcome-workflow
           git checkout -b $BRANCH
-
           echo "Make a commit"
           git config user.name github-actions[bot]
           git config user.email github-actions[bot]@users.noreply.github.com
           git commit --allow-empty --message="Create an empty commit"
-
           echo "Push"
           git push --set-upstream origin $BRANCH
-
           echo "Restore main"
           git checkout main
         env:
